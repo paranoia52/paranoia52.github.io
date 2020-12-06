@@ -20,7 +20,7 @@ pool.connect(err => {
 //     // console.log(result)
 //     console.log('Database created ...')
 // })
-var sql = "CREATE TABLE if not exists users (id INT, username VARCHAR(255))";
+var sql = "CREATE TABLE if not exists users (id INT, username VARCHAR(255), password VARCHAR(255))";
 pool.query(sql, function (err, result) {
 if (err) throw err;
   console.log("Table created");
