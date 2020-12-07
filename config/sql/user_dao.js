@@ -42,7 +42,6 @@ module.exports = {
   login: function (params, callback) { // 登录操作
     pool.query("SELECT * FROM users where username = ? and password = ?;", [params.username, params.password], function (error, result) {
       if (error) throw error;
-      console.log('result----', result);
       callback(result);
     });
   },

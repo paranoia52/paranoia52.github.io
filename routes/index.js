@@ -11,9 +11,14 @@ router.get('/', function (req, res, next) {
 router.post('/login', function (req, res, next) {
   let urlParam = req.body;
   login(urlParam, function (success) {
+    console.log(success);
     res.json({
       status: "200",
-      data: success
+      data: {
+        id: success[0].id | '1',
+        username: success[0].username | '2',
+        fulldata: success
+      }
     });
   })
 });
