@@ -8,7 +8,7 @@ for (var j = 0; j < 15; j++) {
   stars.appendChild(newStar);
 }
 // 封装随机数方法
-function randomDistance (max, min) {
+function randomDistance(max, min) {
   var distance = Math.floor(Math.random() * (max - min + 1) + min);
   return distance;
 }
@@ -23,7 +23,28 @@ $('.login').click(function () {
     username: $('input[name="username"]').val(),
     password: $('input[name="password"]').val()
   }
-  $.post(window.location.href + 'login', query, function (data) {
-    console.log(data);
+  $.post(window.location.href + 'users/login', query, function (res) {
+    console.log(res);
+    if (res.status === '200') {
+      console.log('登录成功');
+      window.location.href = window.location.href + 'home'
+    } else {
+      alert('账号或者密码错误')
+    }
+  })
+})
+$('.register').click(function () {
+  console.log('zcc');
+  var query = {
+    username: $('input[name="username"]').val(),
+    password: $('input[name="password"]').val()
+  }
+  $.post(window.location.href + 'users/add', query, function (res) {
+    console.log(res);
+    if (res.status === '200') {
+      alert('注册成功');
+    } else {
+      alert(res.data)
+    }
   })
 })

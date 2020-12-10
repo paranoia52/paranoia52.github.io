@@ -1,0 +1,25 @@
+#navbar{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 9999;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+}
+#navbar .wrapper{
+  width: 1000px;
+  margin: 0 auto;
+  min-height: 44px;
+}
+#main{
+  min-height:100%;
+  display: flex;
+  width: 1000px;
+  margin: 46px auto;
+}
+#leftSection{
+  width:200px;
+}
+#rightSection{
+  flex: 1;
+}

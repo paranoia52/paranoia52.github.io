@@ -6,10 +6,18 @@ module.exports = {
       user.username ? user.username : null,
       user.password ? user.password : null
     ]
-    pool.query("INSERT INTO users (username , password) VALUES (?, ?);", sqlparam, function (error, result) {
+    pool.query("SELECT * FROM users WHERE username = ?;", sqlparam[0],function (error, result){
       if (error) throw error;
-      callback(result);
-    });
+      if(result.length){
+        callback('账号已存在')
+      } else{
+        pool.query("INSERT INTO users (username , password) VALUES (?, ?);", sqlparam, function (error, result) {
+          if (error) throw error;
+          callback(result);
+        });
+      }
+    })
+    
   },
   deleted: function (params, callback) { // users表中删除指定user操作
     let { id } = params
@@ -22,13 +30,13 @@ module.exports = {
   query: function (params, callback) { // users表中查询指定user操作
     let { id } = params
     let sqlparam = [id]
-    pool.query("SELECT * FROM users WHERE id = ?;", sqlparam, function (error, result) {
+    pool.query("SELECT id,username FROM users WHERE id = ?;", sqlparam, function (error, result) {
       if (error) throw error;
       callback(result[0]);
     });
   },
   queryAll: function (params, callback) { // users表中查询全部user操作
-    pool.query("SELECT * FROM users", params, function (error, result) {
+    pool.query("SELECT id,username FROM users", params, function (error, result) {
       if (error) throw error;
       callback(result);
     });
@@ -40,7 +48,7 @@ module.exports = {
     });
   },
   login: function (params, callback) { // 登录操作
-    pool.query("SELECT * FROM users where username = ? and password = ?;", [params.username, params.password], function (error, result) {
+    pool.query("SELECT id,username FROM users where username = ? and password = ?;", [params.username, params.password], function (error, result) {
       if (error) throw error;
       callback(result);
     });
