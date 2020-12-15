@@ -5,146 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="https://github.com/fluidicon.png">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="backstage/index/index.css">
+  <script src="js/jquery-3.5.1.min.js"></script>
   <style>
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
     #root {
-      width: 100%;
-      height: 100%;
-    }
-
-    #stars {
-      margin: 0 auto;
-      max-width: 1600px;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-    }
-
-    #stars .star {
-      display: block;
-      width: 1px;
-      background: transparent;
-      position: relative;
-      opacity: 0;
-      /*过渡动画*/
-      animation: star-fall 3s linear infinite;
-      -webkit-animation: star-fall 3s linear infinite;
-      -moz-animation: star-fall 3s linear infinite;
-    }
-
-    #stars .star:after {
-      content: "";
-      display: block;
-      border: 0px solid #fff;
-      border-width: 0px 90px 2px 90px;
-      border-color: transparent transparent transparent rgba(255, 255, 255, 0.5);
-      box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.1);
-      /*变形*/
-      transform: rotate(-45deg) translate3d(1px, 3px, 0);
-      -webkit-transform: rotate(-45deg) translate3d(1px, 3px, 0);
-      -moz-transform: rotate(-45deg) translate3d(1px, 3px, 0);
-      transform-origin: 0% 100%;
-      -webkit-transform-origin: 0% 100%;
-      -moz-transform-origin: 0% 100%;
-    }
-
-    .starArea {
-      width: 100vw;
-      height: 100vh;
-      position: fixed;
-      background: linear-gradient(90deg, #000 0, #212C4B 40%, #5A456F);
-      z-index: -99;
-    }
-
-    .moon {
-      position: absolute;
-      top: 20px;
-      right: 40px;
-      width: 60px;
-      height: 60px;
-      background-color: #ffeaa7;
-      border-radius: 50%;
-      box-shadow: 0 0 20px #ffeaa7;
-    }
-
-    .xingxing {
-      position: absolute;
-      width: 0;
-      height: 0;
-      opacity: 0.2;
-      border: 2px solid transparent;
-      border-bottom: 4px solid #fff;
-      animation: blingbling 3s linear infinite;
-    }
-
-    .xingxing::before {
-      content: "";
-      position: absolute;
-      top: 4px;
-      left: -2px;
-      border: 2px solid transparent;
-      border-top: 4px solid #fff;
-    }
-
-    @keyframes blingbling {
-      20% {
-        opacity: 0.2;
-      }
-
-      40% {
-        opacity: 0.5;
-      }
-
-      60% {
-        opacity: 1;
-      }
-
-      80% {
-        opacity: 0.5;
-      }
-
-      100% {
-        opacity: 0.2;
-      }
-    }
-
-    @keyframes star-fall {
-      0% {
-        opacity: 0.5;
-        transform: scale(0.5) translate3d(0, 0, 0);
-        -webkit-transform: scale(0.5) translate3d(0, 0, 0);
-        -moz-transform: scale(0.5) translate3d(0, 0, 0);
-      }
-
-      50% {
-        opacity: 1;
-        transform: translate3d(-1000px, 1000px, 0);
-        -webkit-transform: translate3d(-1000px, 1000px, 0);
-        -moz-transform: translate3d(-1000px, 1000px, 0);
-      }
-
-      100% {
-        opacity: 0;
-        transform: scale(1.2) translate3d(-1100px, 1100px, 0);
-        -webkit-transform: scale(1.2) translate3d(-1100px, 1100px, 0);
-        -moz-transform: scale(1.2) translate3d(-1100px, 1100px, 0);
-      }
+      /* background: url('./img/bg.jpg') no-repeat; */
+      background-size: 100% 100%;
     }
   </style>
-  <title>Express</title>
+  <title>后台</title>
 </head>
 
 <body>
@@ -152,57 +22,25 @@
     <!-- 流星雨效果 -->
     <div id="stars">
       <div class="star" style="top: 0px;left: 500px;"></div>
-      <div style="color: #fff;padding-left: 100px;margin: 100px auto;font-size: 30px;">Express</div>
     </div>
-    <!-- 星空背景 -->
-    <div class="starArea">
-      <div class="moon"></div>
+    <!-- 登录表单 -->
+    <div class="form">
+      <h2>芝麻开门</h2>
+      <div>
+        <span>账号： </span>
+        <input type="text" name="username">
+      </div>
+      <div>
+        <span>密码： </span>
+        <input type="password" name="password">
+      </div>
+      <div class="submit">
+        <span class="login">登录</span>
+        <span class="register">注册</span>
+      </div>
     </div>
   </div>
 </body>
-<script>
-  var stars = document.getElementById("stars");
-  // js随机生成流星
-  for (var j = 0; j < 20; j++) {
-    var newStar = document.createElement("div");
-    newStar.className = "star";
-    newStar.style.top = randomDistance(100, -100) + "px";
-    newStar.style.left = randomDistance(2000, 500) + "px";
-    stars.appendChild(newStar);
-  }
-  // 封装随机数方法
-  function randomDistance(max, min) {
-    var distance = Math.floor(Math.random() * (max - min + 1) + min);
-    return distance;
-  }
-  var star = document.getElementsByClassName("star");
-  // 给流星添加动画延时
-  for (var i = 0, len = star.length; i < len; i++) {
-    star[i].style.animationDelay = i % 6 == 0 ? "0s" : i * 0.8 + "s";
-  }
-  // 星空背景
-  function starInit(starCount) {
-    const starArea = document.querySelector(".starArea");
-    for (let i = 0; i < starCount; i++) {
-      const star = document.createElement("div");
-      star.classList.add("xingxing");
-      starArea.appendChild(star);
-    }
-  }
-  // starInit();
-  function starPosition(starCount) {
-    starInit(starCount);
-    const stars = document.querySelectorAll(".xingxing");
-    console.log(stars);
-    for (let i = 0; i < starCount; i++) {
-      let left = Math.floor(Math.random() * window.innerWidth);
-      let top = Math.floor(Math.random() * window.innerHeight / 1.5);
-      stars[i].style.left = left + 'px';
-      stars[i].style.top = top + 'px';
-      stars[i].style.animationDelay = Math.floor(Math.random().toFixed(1) * i) + 's';
-    }
-  }
-  starPosition(100);
-</script>
+<script src="backstage/index/index.js"></script>
 
 </html>
