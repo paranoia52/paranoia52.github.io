@@ -20,7 +20,7 @@ app.all('*', (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "http://192.168.0.101:8080");
   res.header("Access-Control-Allow-Headers", "content-type");
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
-  res.header("Content-Type", "application/json;charset=utf-8");
+  // res.header("Content-Type", "application/json;charset=utf-8");
   res.header("X-Powered-By", ' 3.2.1')
   next();
 });
