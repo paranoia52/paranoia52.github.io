@@ -17,7 +17,7 @@ app.engine('.html', ejs.__express)
 app.set('view engine', 'html')
 
 app.all('*', (req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://192.168.0.101:8080");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "content-type");
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
   // res.header("Content-Type", "application/json;charset=utf-8");

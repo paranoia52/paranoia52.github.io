@@ -6,35 +6,14 @@ let { add, deleted, query, queryAll, update, login } = require("../../config/sql
 router.post('/login', function (req, res, next) {
   let urlParam = req.body;
   login(urlParam, function (success) {
-    console.log(success);
-    if (!success.length) {
-      res.json({
-        status: "401",
-        msg: '账号或者密码错误'
-      });
-    } else {
-      res.json({
-        status: "200",
-        data: success
-      });
-    }
+    res.json(success);
   })
 });
 // 添加用户 post请求
 router.post('/add', function (req, res, next) {
   let urlParam = req.body;
   add(urlParam, function (success) {
-    if (success === "账号已存在") {
-      res.json({
-        status: "401",
-        data: success
-      });
-    } else {
-      res.json({
-        status: "200",
-        data: success
-      });
-    }
+    res.json(success);
   })
 });
 //update

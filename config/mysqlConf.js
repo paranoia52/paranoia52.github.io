@@ -20,12 +20,13 @@ pool.connect(err => {
 //     // console.log(result)
 //     console.log('Database created ...')
 // })
-var sql = "CREATE TABLE if not exists users (id INT, username VARCHAR(255), password VARCHAR(255))";
+var sql = "CREATE TABLE if not exists users (id INT(30), UserName VARCHAR(255), PassWord VARCHAR(255), NickName VARCHAR(255), Sex INT(1), Age INT(3), InviteCode INT(6), CreateTime TIMESTAMP(6))";
 pool.query(sql, function (err, result) {
 if (err) throw err;
-  console.log("Table created");
+  console.log("users created");
 });
-
+// var sql2 = "CREATE TABLE if not exists music (id INT(30), Name VARCHAR(255), Author VARCHAR(255), Type INT(2), Cover VARCHAR(255))"
+// var sql3 = "CREATE TABLE if not exists article (id INT(30), Title VARCHAR(255))"
 module.exports = {
     pool
 }
