@@ -143,18 +143,34 @@
         -moz-transform: scale(1.2) translate3d(-1100px, 1100px, 0);
       }
     }
+
+    .test {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      color: rgba(255, 255, 255, 0.2);
+    }
+    span{
+      cursor: pointer;
+    }
   </style>
   <title>Express</title>
+  <script type="text/javascript" src="/js/test.js"></script>
 </head>
 
 <body>
+  <div class="test">
+    <span onclick="login()">login</span>
+    <span onclick="regist()">regist</span>
+    <span onclick="getlist()">list</span>
+  </div>
+  <iframe height="100%" width="100%" name="frame1" frameborder="0" src="http://127.0.0.1:8080/#/charmrank?id=1" />
   <div id="root">
-    <!-- 流星雨效果 -->
     <div id="stars">
       <div class="star" style="top: 0px;left: 500px;"></div>
       <div style="color: #fff;padding-left: 100px;margin: 100px auto;font-size: 30px;">Express</div>
     </div>
-    <!-- 星空背景 -->
     <div class="starArea">
       <div class="moon"></div>
     </div>

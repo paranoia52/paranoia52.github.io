@@ -8,6 +8,7 @@ require('./config/mysqlConf.js');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/modules/users');
+var globaltoken = require('./config/jsonwebtoken/globaltoken')
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.all('*', (req, res, next) => {
   res.header("X-Powered-By", ' 3.2.1')
   next();
 });
+app.use(globaltoken) // 全局验证token
 
 app.use(logger('dev'));
 app.use(express.json());

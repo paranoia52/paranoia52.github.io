@@ -3,6 +3,7 @@ var tokenApi = require("../jsonwebtoken/index")
 
 module.exports = {
   login: function (params, callback) { // 登录操作
+    console.log([params.UserName, params.PassWord]);
     pool.query("SELECT id,UserName,NickName,Sex,Age,CreateTime FROM users where UserName = ? and PassWord = ?;", [params.UserName, params.PassWord], function (error, result) {
       if (error) throw error;
       if (!result.length) {
@@ -60,7 +61,7 @@ module.exports = {
     });
   },
   queryAll: function (params, callback) { // users表中查询全部user操作
-    pool.query("SELECT id,username FROM users", params, function (error, result) {
+    pool.query("SELECT id,UserName,NickName,Sex,Age,CreateTime FROM users", params, function (error, result) {
       if (error) throw error;
       callback(result);
     });

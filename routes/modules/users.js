@@ -21,7 +21,7 @@ router.post('/updata', function (req, res, next) {
   let urlParam = req.body;
   update(urlParam, function (success) {
     res.json({
-      status: "200",
+      code: 0,
       data: success
     });
   })
@@ -34,7 +34,7 @@ router.get('/DeleteByid', function (req, res, next) {
   console.log(urlParam);
   deleted(urlParam, function (success) {
     res.json({
-      status: "200",
+      code: 0,
       data: success
     });
   })
@@ -46,7 +46,7 @@ router.get('/userDetail', function (req, res, next) {
   };
   query(urlParam, function (success) {
     res.json({
-      status: "200",
+      code: 0,
       data: success
     });
   })
@@ -55,7 +55,7 @@ router.get('/userDetail', function (req, res, next) {
 router.get('/userList', function (req, res, next) {
   queryAll([], function (success) {
     res.json({
-      status: "200",
+      code: 0,
       data: success
     });
   })
