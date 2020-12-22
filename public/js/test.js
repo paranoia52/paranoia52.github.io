@@ -8,6 +8,7 @@ function ajax(obj) {
 
   xhr.open(obj.type, obj.url, obj.async)
 
+  // 除了登陆，其他接口需要加上token
   if (obj.url.indexOf('login') === -1 && sessionStorage.getItem('token')) {
     xhr.setRequestHeader("token", sessionStorage.getItem('token'))
   }
@@ -60,6 +61,23 @@ function login() {
 }
 
 var regist = function () {
+  console.log('regist');
+  ajax({
+    type: 'post',
+    url: 'http://127.0.0.1:3000/users/add',
+    data: {
+      UserName: "admin02",
+      PassWord: "admin02",
+      NickName: "babala",
+      Sex: 0,
+      Age: 20,
+      InviteCode: 123321,
+    },
+    async: true,
+    success: function (res){
+      console.log(res);
+    }
+  })
 }
 
 function getlist() {

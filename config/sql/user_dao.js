@@ -9,8 +9,8 @@ module.exports = {
       if (!result.length) {
         callback({ code: 401, data: null, msg: '账号或密码错误' })
       } else {
-        tokenApi.setToken(result.id, result.UserName, true).then(res => {
-          callback({ code: 200, data: { res: result[0], token: res }, msg: '请求成功' });
+        tokenApi.setToken(result[0].UserName, result[0].id, true).then(res => {
+          callback({ code: 0, data: { res: result[0], token: res }, msg: '登陆成功' });
         })
       }
     });
@@ -25,8 +25,7 @@ module.exports = {
       user.InviteCode,
       new Date()
     ]
-    console.log(sqlparam);
-    if (sqlparam[5] !== '123321') {
+    if (+sqlparam[5] !== 123321) {
       callback({ code: 401, data: null, msg: '邀请码不正确' })
       return
     } else {
