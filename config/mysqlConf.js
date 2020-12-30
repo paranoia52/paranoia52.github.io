@@ -25,7 +25,11 @@ pool.query(sql, function (err, result) {
 if (err) throw err;
   console.log("users created");
 });
-// var sql2 = "CREATE TABLE if not exists music (id INT(30), Name VARCHAR(255), Author VARCHAR(255), Type INT(2), Cover VARCHAR(255))"
+var sql2 = "CREATE TABLE if not exists musics (id INT(30), Title VARCHAR(255), Author VARCHAR(255), Type INT(2), Cover VARCHAR(255), musicUrl VARCHAR(255), CreateTime TIMESTAMP(6))";
+pool.query(sql2, function (err, result) {
+    if(err) throw err;
+    console.log('musics created')
+})
 // var sql3 = "CREATE TABLE if not exists article (id INT(30), Title VARCHAR(255))"
 module.exports = {
     pool
