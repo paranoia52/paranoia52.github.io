@@ -4,12 +4,13 @@ var tokenApi = require("../jsonwebtoken/index")
 module.exports = {
   login: function (params, callback) { // 登录操作
     console.log([params.UserName, params.PassWord]);
-    pool.query("SELECT id,UserName,NickName,Sex,Age,CreateTime FROM users where UserName = ? and PassWord = ?;", [params.UserName, params.PassWord], function (error, result) {
+    pool.query("SELECT * FROM users where UserName = ? and PassWord = ?;", [params.UserName, params.PassWord], function (error, result) {
       if (error) throw error;
       if (!result.length) {
         callback({ code: 401, data: null, msg: '账号或密码错误' })
       } else {
         tokenApi.setToken(result[0].UserName, result[0].id, true).then(res => {
+          delete result[0].PassWord
           callback({ code: 0, data: { res: result[0], token: res }, msg: '登陆成功' });
         })
       }
@@ -22,26 +23,22 @@ module.exports = {
       user.NickName,
       user.Sex,
       user.Age,
-      user.InviteCode,
-      new Date()
+      user.Signature,
+      new Date(),
+      2,
+      user.HeadIcon,
     ]
-    if (+sqlparam[5] !== 123321) {
-      callback({ code: 401, data: null, msg: '邀请码不正确' })
-      return
-    } else {
-      pool.query("SELECT * FROM users WHERE UserName = ?;", sqlparam[0], function (error, result) {
-        if (error) throw error;
-        if (result.length) {
-          callback({ code: 401, data: null, msg: '账号已存在' })
-        } else {
-          pool.query("INSERT INTO users (UserName , PassWord, NickName, Sex, Age, InviteCode, CreateTime) VALUES (?, ?, ?, ?, ?, ?, ?);", sqlparam, function (error, result) {
-            if (error) throw error;
-            callback({ code: 200, data: result, msg: '注册成功' });
-          });
-        }
-      })
-    }
-
+    pool.query("SELECT * FROM users WHERE UserName = ?;", sqlparam[0], function (error, result) {
+      if (error) throw error;
+      if (result.length) {
+        callback({ code: 401, data: null, msg: '账号已存在' })
+      } else {
+        pool.query("INSERT INTO users (UserName , PassWord, NickName, Sex, Age, Signature, CreateTime, RoleId, HeadIcon) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", sqlparam, function (error, result) {
+          if (error) throw error;
+          callback({ code: 200, data: result, msg: '注册成功' });
+        });
+      }
+    })
   },
   deleted: function (params, callback) { // users表中删除指定user操作
     let { id } = params
