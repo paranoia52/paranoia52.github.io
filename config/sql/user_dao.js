@@ -24,18 +24,18 @@ module.exports = {
       user.Sex,
       user.Age,
       user.Signature,
+      user.HeadIcon,
       new Date(),
       2,
-      user.HeadIcon,
     ]
     pool.query("SELECT * FROM users WHERE UserName = ?;", sqlparam[0], function (error, result) {
       if (error) throw error;
       if (result.length) {
         callback({ code: 401, data: null, msg: '账号已存在' })
       } else {
-        pool.query("INSERT INTO users (UserName , PassWord, NickName, Sex, Age, Signature, CreateTime, RoleId, HeadIcon) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", sqlparam, function (error, result) {
+        pool.query("INSERT INTO users (UserName , PassWord, NickName, Sex, Age, Signature, HeadIcon, CreateTime, RoleId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", sqlparam, function (error, result) {
           if (error) throw error;
-          callback({ code: 200, data: result, msg: '注册成功' });
+          callback({ code: 0, data: result, msg: '注册成功' });
         });
       }
     })
@@ -49,23 +49,38 @@ module.exports = {
     });
   },
   query: function (params, callback) { // users表中查询指定user操作
-    let { id } = params
-    let sqlparam = [id]
-    pool.query("SELECT id,username FROM users WHERE id = ?;", sqlparam, function (error, result) {
-      if (error) throw error;
-      callback(result[0]);
-    });
-  },
-  queryAll: function (params, callback) { // users表中查询全部user操作
-    pool.query("SELECT id,UserName,NickName,Sex,Age,CreateTime FROM users", params, function (error, result) {
-      if (error) throw error;
-      callback(result);
-    });
+    console.log(params);
+    if (params.KeyType == 1) {// 0是全部  1是ID  2是昵称
+      pool.query(`SELECT * FROM users WHERE id LIKE '%${params.Keyword}%' ORDER BY id DESC`, function (error, result) {
+        if (error) throw error;
+        callback({ code: 0, data: result, total: result.length, page: params.page, msg: '' });
+      });
+    } else if (params.KeyType == 2) {
+      pool.query(`SELECT * FROM users WHERE NickName LIKE '%${params.Keyword}%' ORDER BY id DESC`, function (error, result) {
+        if (error) throw error;
+        callback({ code: 0, data: result, total: result.length, page: params.page, msg: '' });
+      });
+    } else if (params.KeyType == 0) {
+      pool.query("SELECT * FROM users ORDER BY id DESC", params, function (error, result) {
+        if (error) throw error;
+        callback({ code: 0, data: result, total: result.length, page: params.page, msg: '' });
+      });
+    } else {
+      callback({ code: 401, data: result, msg: '请检测参数' });
+    }
   },
   update: function (params, callback) { // users表中更新user操作
-    pool.query("UPDATE users set username= ? where id = ?;", [params.username, params.id], function (error, result) {
+    let sqlparam = [
+      params.NickName,
+      params.Sex,
+      params.Age,
+      params.Signature,
+      params.HeadIcon,
+      params.id,
+    ]
+    pool.query("UPDATE users set NickName = ?,Sex = ?,Age = ?,Signature = ?,HeadIcon = ? where id = ?;", sqlparam, function (error, result) {
       if (error) throw error;
-      callback(result);
+      callback({ code: 0, data: result, msg: '更新成功' });
     });
   },
 }

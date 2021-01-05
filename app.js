@@ -24,7 +24,11 @@ app.all('*', (req, res, next) => {
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
   // res.header("Content-Type", "application/json;charset=utf-8");
   res.header("X-Powered-By", ' 3.2.1')
-  next();
+  if (req.method.toLowerCase() == 'options') {
+    res.send(200);  // 让options尝试请求快速结束
+  } else {
+    next();
+  }
 });
 app.use(globaltoken) // 全局验证token
 
@@ -48,8 +52,8 @@ var storage = multer.diskStorage({
 })
 var upload = multer({ storage: storage })
 app.post('/upload', upload.any(), function (req, res, next) {
-  console.log(req.files[0]);  // 上传的文件信息
-  res.send('{ msg : "upload seccessed",url: "http://127.0.0.1:3000/upload/' + req.files[0].filename + '"}')
+  // console.log(req.files[0]);  // 上传的文件信息
+  res.send('{ "msg" : "upload seccessed", "url": "http://127.0.0.1:3000/upload/' + req.files[0].filename + '"}')
 })
 
 // catch 404 and forward to error handler

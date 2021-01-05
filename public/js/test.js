@@ -66,12 +66,13 @@ var regist = function () {
     type: 'post',
     url: 'http://127.0.0.1:3000/users/add',
     data: {
-      UserName: "admin02",
-      PassWord: "admin02",
+      UserName: "admin04",
+      PassWord: "admin03",
       NickName: "babala",
       Sex: 0,
       Age: 20,
-      InviteCode: 123321,
+      Signature: '',
+      HeadIcon: '',
     },
     async: true,
     success: function (res){

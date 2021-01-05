@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-let { add, deleted, query, queryAll, update, login } = require("../../config/sql/user_dao.js"); // 数据库操作
+let { add, deleted, query, update, login } = require("../../config/sql/user_dao.js"); // 数据库操作
 
 // 登录操作
 router.post('/login', function (req, res, next) {
@@ -20,10 +20,7 @@ router.post('/add', function (req, res, next) {
 router.post('/updata', function (req, res, next) {
   let urlParam = req.body;
   update(urlParam, function (success) {
-    res.json({
-      code: 0,
-      data: success
-    });
+    res.json(success);
   })
 });
 // 删除指定用户 get请求
@@ -33,10 +30,7 @@ router.get('/DeleteByid', function (req, res, next) {
   };
   console.log(urlParam);
   deleted(urlParam, function (success) {
-    res.json({
-      code: 0,
-      data: success
-    });
+    res.json(success);
   })
 });
 // 获取指定用户信息 get请求
@@ -45,19 +39,14 @@ router.get('/userDetail', function (req, res, next) {
     id: req.query.id
   };
   query(urlParam, function (success) {
-    res.json({
-      code: 0,
-      data: success
-    });
+    res.json(success);
   })
 });
-// 获取全部用户信息 get请求
-router.get('/userList', function (req, res, next) {
-  queryAll([], function (success) {
-    res.json({
-      code: 0,
-      data: success
-    });
+// 获取用户信息 get请求
+router.post('/userList', function (req, res, next) {
+  let urlParam = req.body;
+  query(urlParam, function (success) {
+    res.json(success);
   })
 });
 
