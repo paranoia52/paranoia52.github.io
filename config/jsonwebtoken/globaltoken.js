@@ -1,5 +1,5 @@
 // token 验证中间件
-let { pool } = require("../mysqlConf.js")
+let { pool } = require("../sqlconect/mysqlConf.js")
 var tokenApi = require("../jsonwebtoken/index")
 module.exports = ((req, res, next) => {
   // 获取当前访问的api地址

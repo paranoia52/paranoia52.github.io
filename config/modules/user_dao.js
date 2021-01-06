@@ -1,4 +1,4 @@
-let { pool } = require("../mysqlConf.js")
+let { pool } = require("../sqlconect/mysqlConf.js")
 var tokenApi = require("../jsonwebtoken/index")
 
 module.exports = {
@@ -53,20 +53,20 @@ module.exports = {
     if (params.KeyType == 1) {// 0是全部  1是ID  2是昵称
       pool.query(`SELECT * FROM users WHERE id LIKE '%${params.Keyword}%' ORDER BY id DESC`, function (error, result) {
         if (error) throw error;
-        callback({ code: 0, data: result, total: result.length, page: params.page, msg: '' });
+        callback({ code: 0, data: pageFilter(result, params.pageNo - 1), msg: '' });
       });
     } else if (params.KeyType == 2) {
       pool.query(`SELECT * FROM users WHERE NickName LIKE '%${params.Keyword}%' ORDER BY id DESC`, function (error, result) {
         if (error) throw error;
-        callback({ code: 0, data: result, total: result.length, page: params.page, msg: '' });
+        callback({ code: 0, data: pageFilter(result, params.pageNo - 1), msg: '' });
       });
     } else if (params.KeyType == 0) {
       pool.query("SELECT * FROM users ORDER BY id DESC", params, function (error, result) {
         if (error) throw error;
-        callback({ code: 0, data: result, total: result.length, page: params.page, msg: '' });
+        callback({ code: 0, data: pageFilter(result, params.pageNo - 1), msg: '' });
       });
     } else {
-      callback({ code: 401, data: result, msg: '请检测参数' });
+      callback({ code: 401, data: null, msg: '请检测参数' });
     }
   },
   update: function (params, callback) { // users表中更新user操作
@@ -83,4 +83,20 @@ module.exports = {
       callback({ code: 0, data: result, msg: '更新成功' });
     });
   },
+}
+
+function pageFilter(data, pageNo) {
+  if (data.length < 11) {
+    return {
+      data: data,
+      total: data.length,
+      pageNo: pageNo
+    }
+  } else {
+    return {
+      data: data.slice(10 * pageNo, (10 * pageNo + 10)),
+      total: data.length,
+      pageNo: pageNo + 1
+    }
+  }
 }

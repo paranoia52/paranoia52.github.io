@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-let { add, deleted, query, update, login } = require("../../config/sql/user_dao.js"); // 数据库操作
+let { add, deleted, query, update, login } = require("../../config/modules/user_dao.js"); // 数据库操作
 
 // 登录操作
 router.post('/login', function (req, res, next) {
@@ -42,7 +42,7 @@ router.get('/userDetail', function (req, res, next) {
     res.json(success);
   })
 });
-// 获取用户信息 get请求
+// 获取用户信息 post请求
 router.post('/userList', function (req, res, next) {
   let urlParam = req.body;
   query(urlParam, function (success) {

@@ -1,25 +1,8 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan'); // 日志组件
-var ejs = require('ejs') // 设置模板引擎
-var multer = require('multer'); // 上传文件依赖
-require('./config/sqlconect/mysqlConf.js'); // 操作数据库文件
-
+var app = require('../app');
 // 路由模块
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/modules/users');
-
-// 验证token中间件
-var globaltoken = require('./config/jsonwebtoken/globaltoken')
-
-var app = express();
-
-// 视图引擎设置html
-app.set('views', path.join(__dirname, 'views'));
-app.engine('.html', ejs.__express)
-app.set('view engine', 'html')
+var indexRouter = require('../routes/index');
+var usersRouter = require('../routes/modules/users');
+var multer = require('multer'); // 上传文件依赖
 
 // 允许跨域
 app.all('*', (req, res, next) => {
@@ -33,24 +16,16 @@ app.all('*', (req, res, next) => {
     next();
   }
 });
+
 // 验证token中间件
-app.use(globaltoken) // 全局验证token
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// 设置路由
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+var globaltoken = require('./jsonwebtoken/globaltoken')
+app.use(globaltoken)
 
 // 文件上传路径
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     console.log('destination----------------');
-    cb(null, './public/upload')
+    cb(null, '../public/upload')
   },
   filename: function (req, file, cb) {
     console.log('filename----------------', file);
@@ -59,11 +34,19 @@ var storage = multer.diskStorage({
   }
 })
 var upload = multer({ storage: storage })
-app.use('/upload', upload.any(), function (req, res, next) {
+app.use('/upload', function (req, res, next) {
   console.log('upload----------------', upload);
+  res.send(200)
+})
+app.use('/upload', upload.any(), function (req, res, next) {
   // console.log(req.files[0]);  // 上传的文件信息
   res.send('{ "msg" : "upload seccessed", "url": "http://127.0.0.1:3000/upload/' + req.files[0].filename + '"}')
 })
+
+// 设置路由
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+
 
 // 所有路由定义完之后，最后做404处理 
 app.use(function (req, res, next) {
@@ -81,4 +64,5 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+
+// require('./config'); 
