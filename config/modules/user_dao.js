@@ -16,15 +16,15 @@ module.exports = {
       }
     });
   },
-  add: function (user, callback) { // users表中增加user操作
+  add: function (params, callback) { // users表中增加user操作
     let sqlparam = [
-      user.UserName,
-      user.PassWord,
-      user.NickName,
-      user.Sex,
-      user.Age,
-      user.Signature,
-      user.HeadIcon,
+      params.UserName,
+      params.PassWord,
+      params.NickName,
+      params.Sex,
+      params.Age,
+      params.Signature,
+      params.HeadIcon,
       new Date(),
       2,
     ]

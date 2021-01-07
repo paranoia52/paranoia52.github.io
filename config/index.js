@@ -1,4 +1,5 @@
 var app = require('../app');
+var createError = require('http-errors');
 
 // 允许跨域
 app.all('*', (req, res, next) => {
@@ -39,9 +40,11 @@ app.use('/upload', upload.any(), function (req, res, next) {
 // 路由模块
 var indexRouter = require('../routes/index');
 var usersRouter = require('../routes/modules/users');
+var musicRouter = require('../routes/modules/music');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/music', musicRouter);
 
 
 // 所有路由定义完之后，最后做404处理 
