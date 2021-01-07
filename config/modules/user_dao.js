@@ -49,7 +49,6 @@ module.exports = {
     });
   },
   query: function (params, callback) { // users表中查询指定user操作
-    console.log(params);
     if (params.KeyType == 1) {// 0是全部  1是ID  2是昵称
       pool.query(`SELECT * FROM users WHERE id LIKE '%${params.Keyword}%' ORDER BY id DESC`, function (error, result) {
         if (error) throw error;

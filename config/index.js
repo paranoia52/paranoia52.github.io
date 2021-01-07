@@ -1,8 +1,4 @@
 var app = require('../app');
-// 路由模块
-var indexRouter = require('../routes/index');
-var usersRouter = require('../routes/modules/users');
-var multer = require('multer'); // 上传文件依赖
 
 // 允许跨域
 app.all('*', (req, res, next) => {
@@ -11,7 +7,7 @@ app.all('*', (req, res, next) => {
   res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
   res.header("X-Powered-By", ' 3.2.1')
   if (req.method.toLowerCase() == 'options') {
-    res.send(200);  // 让options尝试请求快速结束
+    res.sendStatus(200);  // 让options尝试请求快速结束
   } else {
     next();
   }
@@ -21,29 +17,29 @@ app.all('*', (req, res, next) => {
 var globaltoken = require('./jsonwebtoken/globaltoken')
 app.use(globaltoken)
 
-// 文件上传路径
+// 文件上传
+var multer = require('multer'); // 上传文件依赖
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log('destination----------------');
-    cb(null, '../public/upload')
+    cb(null, './public/uploadPic')
   },
   filename: function (req, file, cb) {
-    console.log('filename----------------', file);
     var fileFormat = (file.originalname).split(".");
     cb(null, fileFormat[0] + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1]);
   }
 })
 var upload = multer({ storage: storage })
-app.use('/upload', function (req, res, next) {
-  console.log('upload----------------', upload);
-  res.send(200)
-})
 app.use('/upload', upload.any(), function (req, res, next) {
   // console.log(req.files[0]);  // 上传的文件信息
-  res.send('{ "msg" : "upload seccessed", "url": "http://127.0.0.1:3000/upload/' + req.files[0].filename + '"}')
+  res.send('{ "msg" : "upload seccessed", "url": "http://127.0.0.1:3000/uploadPic/' + req.files[0].filename + '"}')
 })
 
-// 设置路由
+
+// 路由模块
+var indexRouter = require('../routes/index');
+var usersRouter = require('../routes/modules/users');
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -63,6 +59,3 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
-// require('./config'); 
