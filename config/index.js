@@ -23,7 +23,7 @@ var multer = require('multer'); // 上传文件依赖
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './public/uploadPic')
+    cb(null, './public/upload')
   },
   filename: function (req, file, cb) {
     var fileFormat = (file.originalname).split(".");
@@ -33,7 +33,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 app.use('/upload', upload.any(), function (req, res, next) {
   // console.log(req.files[0]);  // 上传的文件信息
-  res.send('{ "msg" : "upload seccessed", "url": "http://127.0.0.1:3000/uploadPic/' + req.files[0].filename + '"}')
+  res.send('{ "msg" : "upload seccessed", "url": "http://127.0.0.1:3000/upload/' + req.files[0].filename + '"}')
 })
 
 
