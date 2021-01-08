@@ -41,10 +41,12 @@ app.use('/upload', upload.any(), function (req, res, next) {
 var indexRouter = require('../routes/index');
 var usersRouter = require('../routes/modules/users');
 var musicRouter = require('../routes/modules/music');
+var roleRouter = require('../routes/modules/role');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/music', musicRouter);
+app.use('/role', roleRouter);
 
 
 // 所有路由定义完之后，最后做404处理 

@@ -17,3 +17,15 @@ pool.query(sql_musics, function (err, result) {
   if (err) throw err;
   console.log('musics created')
 })
+
+var sql_role = "CREATE TABLE if not exists roles (id INT(30), RoleName VARCHAR(255), Menu VARCHAR(255), Intro VARCHAR(255), Status INT(10))";
+pool.query(sql_role, function (err, result) {
+  if (err) throw err;
+  console.log('roles created')
+})
+
+var sql_article = "CREATE TABLE if not exists articles (id INT(30), UserId INT(30), Title VARCHAR(255), Author VARCHAR(255), Content VARCHAR(5000), CreateTime TIMESTAMP(6) )";
+pool.query(sql_article, function (err, result) {
+  if (err) throw err;
+  console.log('articles created');
+})
