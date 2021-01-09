@@ -30,4 +30,14 @@ module.exports = {
       callback({ code: 401, data: '', msg: '请检查参数' });
     }
   },
+  del: function (params, callback) {
+    if (params > 1) {
+      pool.query("DELETE FROM roles WHERE id = ?;", params, function (error, result) {
+        if (error) throw error;
+        callback({ code: 0, data: result, msg: '删除成功' });
+      });
+    } else {
+      callback({ code: 401, data: '', msg: '此角色不可删除' });
+    }
+  },
 }
