@@ -10,12 +10,11 @@ module.exports = {
         callback({ code: 401, data: null, msg: '账号或密码错误' })
       } else {
         tokenApi.setToken(result[0].UserName, result[0].id, true).then(res => {
-          // delete result[0].PassWord
-          // callback({ code: 0, data: { res: result[0], token: res }, msg: '登陆成功' });
-          pool.query(`SELECT * FROM users INNER JOIN roles ON ${result[0].RoleId} = roles.id;`, function (error, result2) {
+          // console.log(result[0]);
+          pool.query(`SELECT * FROM users INNER JOIN roles ON users.RoleId = roles.id WHERE users.id = ${result[0].id} ;`, function (error, result2) {
             if (error) throw error;
             delete result2[0].PassWord
-            callback({ code: 0, data: { res: result2[0], token: res }, msg: '登陆成功' });
+            callback({ code: 0, data: { res: result2, token: res }, msg: '登陆成功' });
           })
         })
       }
@@ -89,7 +88,7 @@ module.exports = {
   },
 }
 
-function pageFilter(data, pageNo) {
+function pageFilter (data, pageNo) {
   if (data.length < 11) {
     return {
       data: data,
