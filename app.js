@@ -20,4 +20,4 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 module.exports = app;
 
-require('./config'); 
+require('./config'); // 路由 允许跨域 上传文件等中间件

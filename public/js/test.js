@@ -59,35 +59,3 @@ function login() {
     }
   })
 }
-
-var regist = function () {
-  console.log('regist');
-  ajax({
-    type: 'post',
-    url: 'http://127.0.0.1:3000/users/add',
-    data: {
-      UserName: "admin04",
-      PassWord: "admin03",
-      NickName: "babala",
-      Sex: 0,
-      Age: 20,
-      Signature: '',
-      HeadIcon: '',
-    },
-    async: true,
-    success: function (res){
-      console.log(res);
-    }
-  })
-}
-
-function getlist() {
-  ajax({
-    type: 'get',
-    url: 'http://127.0.0.1:3000/users/userList',
-    async: true,
-    success: function (res) {
-      console.log(res);
-    }
-  })
-}
