@@ -3,8 +3,9 @@ var tokenApi = require("../jsonwebtoken/index")
 
 module.exports = {
   login: function (params, callback) { // 登录操作
-    console.log([params.UserName, params.PassWord]);
-    pool.query("SELECT * FROM users where UserName = ? and PassWord = ?;", [params.UserName, params.PassWord], function (error, result) {
+    let sqlparam = [params.UserName, params.PassWord]
+    console.log(sqlparam)
+    pool.query(`SELECT * FROM users WHERE UserName = ? AND PassWord = ?;`, sqlparam, function (error, result) {
       if (error) throw error;
       if (!result.length) {
         callback({ code: 401, data: null, msg: '账号或密码错误' })
@@ -88,7 +89,7 @@ module.exports = {
   },
 }
 
-function pageFilter (data, pageNo) {
+function pageFilter(data, pageNo) {
   if (data.length < 11) {
     return {
       data: data,
