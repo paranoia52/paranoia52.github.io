@@ -29,7 +29,7 @@ module.exports = ((req, res, next) => {
   }
   tokenApi.verToken(token).then(res => {
     // console.log(res);
-    pool.query("SELECT id,UserName FROM users where id = ? and UserName = ?;", [res.obj.userId, res.obj.username], function (error, result) {
+    pool.query("SELECT id,account FROM users where id = ? and account = ?;", [res.obj.userId, res.obj.username], function (error, result) {
       if (error) throw error;
       if (!result.length) {
         callback({ code: 401, data: null, msg: 'token失效了!' })

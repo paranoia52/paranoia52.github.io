@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-let { handleAdd, handleInq, handleDel } = require("../../config/modules/role_dao.js"); // 数据库操作
+let { handleAdd, handleInq, handleDel, handleDetail } = require("../../config/modules/article_dao.js"); // 数据库操作
 
 // 添加角色
 router.post('/add', function (req, res, next) {
@@ -19,6 +19,12 @@ router.post('/inquiry', function (req, res, next) {
 // 删除角色
 router.get('/del', function (req, res, next) {
   handleDel(req.query.id, function (success) {
+    res.json(success);
+  })
+});
+// 删除角色
+router.get('/detail', function (req, res, next) {
+  handleDetail(req.query.id, function (success) {
     res.json(success);
   })
 });

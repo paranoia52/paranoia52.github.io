@@ -33,20 +33,22 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 app.use('/upload', upload.any(), function (req, res, next) {
   // console.log(req.files[0]);  // 上传的文件信息
-  res.send('{ "msg" : "upload seccessed", "url": "http://127.0.0.1:3000/upload/' + req.files[0].filename + '"}')
+  res.send('{ "msg" : "upload seccessed", "url": "http://47.243.133.60:3000/upload/' + req.files[0].filename + '"}')
 })
 
 
 // 路由模块
 var indexRouter = require('../routes/index');
-var usersRouter = require('../routes/modules/users');
+var usersRouter = require('../routes/modules/user');
 var musicRouter = require('../routes/modules/music');
 var roleRouter = require('../routes/modules/role');
+var articleRouter = require('../routes/modules/article');
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/music', musicRouter);
 app.use('/role', roleRouter);
+app.use('/article', articleRouter);
 
 
 // 所有路由定义完之后，最后做404处理 

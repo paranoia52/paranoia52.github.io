@@ -1,18 +1,24 @@
 var express = require('express');
 var router = express.Router();
-let { add, query } = require("../../config/modules/music_dao.js"); // 数据库操作
+let { handleAdd, handleInq, handleDel } = require("../../config/modules/music_dao.js"); // 数据库操作
 
 // 添加歌曲
 router.post('/add', function (req, res, next) {
   let urlParam = req.body;
-  add(urlParam, function (success) {
+  handleAdd(urlParam, function (success) {
     res.json(success);
   })
 });
 // 获取歌曲列表
-router.post('/query', function (req, res, next) {
+router.post('/inquiry', function (req, res, next) {
   let urlParam = req.body;
-  query(urlParam, function (success) {
+  handleInq(urlParam, function (success) {
+    res.json(success);
+  })
+});
+// 删除 get请求
+router.get('/del', function (req, res, next) {
+  handleDel(req.query, function (success) {
     res.json(success);
   })
 });
