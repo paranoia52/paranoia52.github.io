@@ -1,22 +1,47 @@
 {
-  "name": "server",
+  "name": "hexo-site",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "serve": "node ./bin/www"
+    "build": "hexo generate",
+    "clean": "hexo clean",
+    "deploy": "hexo deploy",
+    "server": "hexo server"
+  },
+  "hexo": {
+    "version": "7.0.0"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "ejs": "^3.1.5",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "jsonwebtoken": "^8.5.1",
-    "morgan": "~1.9.1",
-    "mysql": "^2.18.1"
-  },
-  "devDependencies": {
-    "multer": "^1.4.2"
+    "@algolia/client-search": "^4.22.1",
+    "@waline/client": "^3.0.1",
+    "algoliasearch": "^4.22.1",
+    "esbuild": "^0.20.0",
+    "hexo": "^7.0.0",
+    "hexo-algoliasearch": "^2.0.1",
+    "hexo-feed": "^1.1.2",
+    "hexo-fs": "^4.1.1",
+    "hexo-generator-archive": "^2.0.0",
+    "hexo-generator-category": "^2.0.0",
+    "hexo-generator-index": "^3.0.0",
+    "hexo-generator-tag": "^2.0.0",
+    "hexo-lightning-minify": "^0.1.5",
+    "hexo-pagination": "^3.0.0",
+    "hexo-renderer-ejs": "^2.0.0",
+    "hexo-renderer-multi-next-markdown-it": "^0.2.1",
+    "hexo-renderer-pug": "^3.0.0",
+    "hexo-renderer-stylus": "^3.0.0",
+    "hexo-server": "^3.0.0",
+    "hexo-theme-landscape": "^1.0.0",
+    "hexo-theme-shokax": "^0.4.2",
+    "hexo-util": "^3.2.0",
+    "instantsearch.js": "^4.64.2",
+    "js-yaml": "^4.1.0",
+    "mouse-firework": "^0.0.5",
+    "quicklink": "^2.3.0",
+    "theme-shokax-anime": "^0.0.6",
+    "theme-shokax-pjax": "^0.0.3",
+    "twikoo": "^1.6.31",
+    "unlazy": "^0.10.4",
+    "vue": "^3.4.15"
   }
 }

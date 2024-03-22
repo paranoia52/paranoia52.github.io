@@ -1,0 +1,4 @@
+statics: "/" # 静态文件根目录，可用于 CDN 加速
+assets: "assets" # 图片资源存放目录
+css: "css" # css 存放目录 (不建议改动)
+js: "js" # js 存放目录 (不建议改动)
