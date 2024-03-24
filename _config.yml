@@ -3,17 +3,18 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
-timezone: ''
+title: '轻云薄雾，总是少年行乐处'
+subtitle: '不似秋光，只与离人照断肠'
+description: 'description'
+keywords: keywords
+author: qz
+language: zh-CN
+timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: http://127.0.0.1/blog
+root: /blog/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -65,8 +66,17 @@ index_generator:
   order_by: -date
 
 # Category & Tag
-default_category: uncategorized
+default_category: daily
+
+# 首页精选与分类翻转块
 category_map:
+  # 日常: daily
+  # 学习: study
+  # 其他: other
+  # 二次元: subcul
+  # 电子产品: eleproduct
+
+
 tag_map:
 
 # Metadata elements
@@ -171,3 +181,35 @@ minify:
       # 我们更建议使用 Service Worker 来在用户侧实现 replaceSrc 的功能，这将能够以一种侵入式更小的方式实现链接替换
     exclude:
 
+feed:
+  limit: 20
+  order_by: "-date"
+  tag_dir: false
+  category_dir: false
+  rss:
+    enable: true
+    template: "node_modules/hexo-feed/lib/templates/rss.ejs"
+    output: "rss.xml"
+  atom:
+    enable: true
+    template: "node_modules/hexo-feed/lib/templates/atom.ejs"
+    output: "atom.xml"
+  jsonFeed:
+    enable: true
+    template: "node_modules/hexo-feed/lib/templates/json.ejs"
+    output: "feed.json"
+
+algolia:
+  appId: #Your appId
+  apiKey: #Your apiKey
+  adminApiKey: #Your adminApiKey
+  chunkSize: 5000
+  indexName: #"shokaX"
+  fields:
+    - title #必须配置
+    - path #必须配置
+    - categories #推荐配置
+    - content:strip:truncate,0,2000
+    - gallery
+    - photos
+    - tags

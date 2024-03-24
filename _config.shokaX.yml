@@ -2,3 +2,117 @@ statics: "/" # 静态文件根目录，可用于 CDN 加速
 assets: "assets" # 图片资源存放目录
 css: "css" # css 存放目录 (不建议改动)
 js: "js" # js 存放目录 (不建议改动)
+
+  ### 自定义网站图片
+  # + 以下文件的修改均在 /source/_data/ 中预设的素材文件夹中进行，如 /source/_data/assets
+
+  # + avatar.jpg 默认情况下对应主页上的个人头像，可修改
+  # + favicon.ico 网站图标
+  # + apple-touch-icon.png 将网页链接添加到主屏幕时的图标
+  # + failure.ico 网站被隐藏时的网站图标
+  # + alipay.png 支付宝捐赠付款码
+  # + wechatpay.png 微信捐赠收款码
+  # + paypal.png PayPal 捐赠收款码
+  # + search.png 搜索下显示的图片
+
+
+modules:
+  player: true # 启用音乐播放器
+  fireworks: true # 启用鼠标点击烟花特效
+  unlazyHash: false # 启用unlazy hash预览图支持
+  visibilityListener: true # 启用可见度监听器 切换标签页改变标题
+  tabs: true # 启用选项卡扩展支持，如需开启 summary 功能请一并开启
+  quiz: true # 启用文章内问题扩展支持
+  fancybox: true # 启用 fancybox 支持（不建议禁用）
+
+homeConfig:
+  gradient: false # 使用CSS渐变作为文章封面
+  # fixedCover 性能比默认的更好，且开启时将启用LCP优化和预加载
+  fixedCover: "" # 主页面cover(为空则使用bing随机图片)
+
+
+
+
+# 导航栏
+    # 1 独立导航链接（例如 home 和 link2）
+    #     home(link2) 为本地化键（详见本地化）和备用名称；
+    #     /(/page2/) 为超链接地址，可为站外链接（需要带 https）； || 分隔符，分隔链接和图标；
+    #     home(user) 图标，具体可参见 _iconfont.styl。
+    # 2 下拉菜单（例如 submenu）
+    #     default 为 dropbox 显示的内容，不建议在此处放置超链接地址（建议设置为 /）；
+    #     剩余部分为 n 个不重复的独立导航链接
+    
+menu:
+  home: / || home
+  友链:
+    default: http:www.baidu.com || qz
+    link:  http:www.baidu.com || qz
+  神秘链接: http://127.0.0.1 || coffee
+
+# 社交链接
+  # keyname：合法且不重复的 yaml 键；
+  # link：社交网站链接；
+  # logo：社交网站 logo；
+  # color：社交网站 logo 颜色，选填（不填为字体颜色）
+
+social:
+  keyname: link || logo || "color"
+
+
+# 侧边栏
+sidebar:
+  position: left # left/right分别对应左侧/右侧
+  avatar: avatar.jpg
+
+
+# 大标题
+alternate: "welcome" #站点大标题，（比 title 高一级，但仅在 index 显示）
+
+# 底部
+widgets:
+  random_posts: true # 随机文章
+  recent_comments: true # 显示最近评论
+
+
+# 字数与阅读时间
+# 页尾全站统计
+footer:
+  since: 2010 # 开始时间
+  count: true # 开启
+# 文章界面统计
+post:
+  count: true # 开启
+
+
+# 预加载、解析地址设置
+performance:
+  # 使用 preconnect 预加载的地址 (不建议超过三个)
+  preConnect:
+    - "https://lf9-cdn-tos.bytecdntp.com"
+  # 使用 dns-prefetch 预解析的地址
+  dnsPrefetch:
+    - "https://cdn.jsdelivr.net"
+    - "https://unpkg.com"
+
+# SEO
+seo:
+  bing:
+  google:
+  yandex:
+  baidu:
+
+visitor:
+  clarity: false
+  baiduAnalytics: false
+  googleAnalytics: false
+
+
+# 夜间模式  优先级 访客点击头部自行选择 > 浏览器设置主题色调 > darkmode 配置
+darkmode: true # true/false分别对应打开/关闭夜间模式
+
+
+# 自动定位  开启后默认情况下，再次打开页面，会自动滚动到上次浏览的位置。
+auto_scroll: false
+
+
+# 网站标题自定义  自动网站点击之后和隐藏之后的标题，可覆盖原本呈现的文字。 以下配置均在 /_source/_data/languages.yml 文件中修改。

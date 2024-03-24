@@ -1,0 +1,16 @@
+# 自定义网站轮播图
+
+# 自0.3.7版本开始，ShokaX 允许主页和文章使用不同的图片源： 以下文件中以_开头的为主题文件夹下，其他均为source/_data目录下：
+
+# images_index.yml为首页图片源文件，如果主题文件夹下存在_images_index.yml，则会使用主题文件夹下的文件，否则使用source/_data/images_index.yml
+# images.yml为通用图片源文件，作为首页的后备图片源和文章的图片源。如果未找到images.yml，则会使用主题文件夹下的_images.yml
+
+- http://127.0.0.1/static/bg1.png
+- http://127.0.0.1/static/bg2.png
+- http://127.0.0.1/static/bg3.png
+- http://127.0.0.1/static/bg4.png
+- http://127.0.0.1/static/bg5.png
+- http://127.0.0.1/static/bg6.png
+- http://127.0.0.1/static/bg7.png
+- http://127.0.0.1/static/bg8.png
+- http://127.0.0.1/static/bg9.png
