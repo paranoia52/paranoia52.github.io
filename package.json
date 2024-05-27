@@ -15,7 +15,7 @@
     "@algolia/client-search": "^4.22.1",
     "@waline/client": "^3.0.1",
     "algoliasearch": "^4.22.1",
-    "esbuild": "^0.20.0",
+    "esbuild": "^0.21.4",
     "hexo": "^7.0.0",
     "hexo-algoliasearch": "^2.0.1",
     "hexo-feed": "^1.1.2",
