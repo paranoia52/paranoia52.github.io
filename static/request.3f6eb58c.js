@@ -1,0 +1,1 @@
+import{p as a,g as s}from"./index.064e8d7a.js";const i=s=>a("/user/login",s),e=s=>a("/music/add",s),r=s=>a("/music/inquiry",s),d=a=>s("/music/del",a),l=s=>a("/role/inquiry",s),c=s=>a("/role/add",s),o=a=>s("/role/del",a),u=s=>a("/article/inquiry",s),n=s=>a("/article/add",s),t=a=>s("/article/del",a);export{c as A,o as D,u as G,i as L,l as a,e as b,r as c,d,n as e,t as f};
